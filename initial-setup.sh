@@ -5,7 +5,7 @@ get_latest_release() {
     sed -E 's/.*"([^"]+)".*/\1/'                                    # Pluck JSON value
 }
 
-ubuntuRepositoryInstallation () {
+ubuntuRepositoryInstallation (){
 	sudo apt update && sudo apt-get -f -y upgrade
 
  	if [ $popos -e 0 ]
@@ -21,11 +21,10 @@ flatpakInstallation (){
 }
 
 manualInstallation (){
-
 	clear
-
-  mv ./icons/*.png $HOME/Apps/icons
   mkdir $HOME/Apps/ && mkdir $HOME/Apps/Bitwarden && mkdir $HOME/Apps/Emby && mkdir $HOME/Apps/icons
+  mv ./icons/*.png $HOME/Apps/icons
+  mv ./scripts/emby.sh $HOME/Apps/Emby
   mkdir files && cd ./files
 
 	curl -L -o bitwarden.AppImage https://vault.bitwarden.com/download/?app=desktop&platform=linux
@@ -41,6 +40,7 @@ manualInstallation (){
   chmod 775 *.AppImage
   mv bitwarden.AppImage $HOME/Apps/bitwarden
 	mv *.desktop $HOME/.local/share/applications
+  cd .. && rm -r ./files
 }
 
 echo "You're about to install a lot of programs, this was made to use once in a recent Ubuntu or Ubuntu derivative installation and assuming you're using Gnome Desktop Envrioment\n"
