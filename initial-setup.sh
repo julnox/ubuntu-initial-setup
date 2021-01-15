@@ -30,6 +30,7 @@ manualInstallation (){
 	curl -L -o bitwarden.AppImage https://vault.bitwarden.com/download/?app=desktop&platform=linux
 	curl -L -o bitwarden.png https://images.sftcdn.net/images/t_app-cover-m,f_auto/p/fcec8b2d-e0a4-48dc-91fe-1a9ff0840ae8/1319010454/bitwarden-screenshot.png
 	curl -L -o discord.deb https://discord.com/api/download?platform=linux&format=deb
+	curl -L -o atom.deb https://atom.io/download/deb
 
 	TAGNAME=$(get_latest_release "MediaBrowser/Emby.Releases") && ENDSTRING="_amd64.deb" && LOCATION="https://github.com/MediaBrowser/Emby.Releases/releases/latest/download/emby-server-deb_$TAGNAME$ENDSTRING"; curl -L -o emby.deb $LOCATION
 	
@@ -61,7 +62,7 @@ if [ $ANSWERCONTINUE -e "Y" -o $ANSWERCONTINUE -e "y" ]
 		echo "Foliate, Telegram, Visual Studio Code"
 		
 		echo "\nList of Manual installation programs: "
-		echo "Bitwarden, Discord, Emby Server, Lutris (if not in Pop_Os)"
+		echo "Atom, Bitwarden, Discord, Emby Server, Lutris (if not in Pop_Os)"
 		
 		echo "\nAre you using Pop_OS? (Y/N) [Default=Y]"
 		read ANSWERPOPOS
