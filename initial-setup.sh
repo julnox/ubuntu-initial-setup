@@ -23,23 +23,24 @@ flatpakInstallation (){
 manualInstallation (){
 
 	clear
-	cd $HOME
- 	mkdir manual-install
- 	cd manual-install
+
+  mv ./icons/*.png $HOME/Apps/icons
+  mkdir $HOME/Apps/ && mkdir $HOME/Apps/Bitwarden && mkdir $HOME/Apps/Emby && mkdir $HOME/Apps/icons
+  mkdir files && cd ./files
 
 	curl -L -o bitwarden.AppImage https://vault.bitwarden.com/download/?app=desktop&platform=linux
-	curl -L -o bitwarden.png https://images.sftcdn.net/images/t_app-cover-m,f_auto/p/fcec8b2d-e0a4-48dc-91fe-1a9ff0840ae8/1319010454/bitwarden-screenshot.png
 	curl -L -o discord.deb https://discord.com/api/download?platform=linux&format=deb
 	curl -L -o atom.deb https://atom.io/download/deb
-
 	TAGNAME=$(get_latest_release "MediaBrowser/Emby.Releases") && ENDSTRING="_amd64.deb" && LOCATION="https://github.com/MediaBrowser/Emby.Releases/releases/latest/download/emby-server-deb_$TAGNAME$ENDSTRING"; curl -L -o emby.deb $LOCATION
 
 	dpkg -i *.deb
 
-	echo -e "[Desktop Entry]\nName=Bitwarden\nComment=Password Manager\nExec=$HOME/Apps/Bitwarden/Bitwarden.AppImage\nIcon=$HOME/Apps/Bitwarden/bitwarden.png\nTerminal=false\nType=Application\nCategories=Utility;GTK;" >> bitwarden.desktop
+	echo -e "[Desktop Entry]\nName=Bitwarden\nComment=Password Manager\nExec=$HOME/Apps/Bitwarden/bitwarden.AppImage\nIcon=$HOME/Apps/icons/bitwarden.png\nTerminal=false\nType=Application\nCategories=Utility;GTK;" >> bitwarden.desktop
+  echo -e "[Desktop Entry]\nName=Emby\nComment=Media Server\nExec=sh $HOME/Apps/Emby/emby.sh\nIcon=$HOME/Apps/icons/emby.png\nTerminal=true\nType=Application\nCategories=Video;Audio;Network;" >> emby.desktop
 
-	chmod 775 *.desktop
-	mv ./*.desktop $HOME/.local/share/applications
+  chmod 775 *.AppImage
+  mv bitwarden.AppImage $HOME/Apps/bitwarden
+	mv *.desktop $HOME/.local/share/applications
 }
 
 echo "You're about to install a lot of programs, this was made to use once in a recent Ubuntu or Ubuntu derivative installation and assuming you're using Gnome Desktop Envrioment\n"
