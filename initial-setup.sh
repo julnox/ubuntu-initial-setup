@@ -12,7 +12,7 @@ ubuntuRepositoryInstallation (){
     then
         sudo apt -y install audacity blender codeblocks gedit gimp gpick gdebi-core gthumb gufw handbrake kdenlive libreoffice mysql-server-8.0 openjdk-11-jdk postgresql pgadmin3 rhythmbox steam transmission vim vlc winetricks wine-stable && sudo add-apt-repository ppa:lutris-team/lutris && sudo apt update && sudo apt -y install lutris
     else
-        sudo apt -y install audacity blender codeblocks gedit gimp gpick gthumb gufw handbrake lutris kdenlive libreoffice mysql-server-8.0 openjdk-11-jdk postgresql pgadmin3 rhythmbox steam transmission vim vlc winetricks wine-stable
+        sudo apt -y install audacity blender codeblocks gedit gimp gpick gdebi-core gthumb gufw handbrake lutris kdenlive libreoffice mysql-server-8.0 openjdk-11-jdk postgresql pgadmin3 rhythmbox steam transmission vim vlc winetricks wine-stable
     fi
 }
 
