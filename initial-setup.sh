@@ -7,11 +7,11 @@ get_latest_release() {
 
 ubuntuRepositoryInstallation () {
 	sudo apt update && sudo apt-get -f -y upgrade
- 	
- 	if [ $popos -e 0 ] 
+
+ 	if [ $popos -e 0 ]
  	then
 		sudo apt-get -f -y install audacity blender codeblocks gedit gimp gpick gthumb gufw handbrake kdenlive libreoffice mysql openjdk-11-jdk postgresql pgadmin3 rhythmbox steam transmission vim vlc winetricks wine-stable && sudo add-apt-repository ppa:lutris-team/lutris && sudo apt update && sudo apt install lutris
-	else 
+	else
 		sudo apt-get -f -y install audacity blender codeblocks gedit gimp gpick gthumb gufw handbrake lutris kdenlive libreoffice mysql openjdk-11-jdk postgresql pgadmin3 rhythmbox steam transmission vim vlc winetricks wine-stable
 	fi
 }
@@ -21,30 +21,23 @@ flatpakInstallation (){
 }
 
 manualInstallation (){
-	
+
 	clear
 	cd $HOME
  	mkdir manual-install
  	cd manual-install
- 	
+
 	curl -L -o bitwarden.AppImage https://vault.bitwarden.com/download/?app=desktop&platform=linux
 	curl -L -o bitwarden.png https://images.sftcdn.net/images/t_app-cover-m,f_auto/p/fcec8b2d-e0a4-48dc-91fe-1a9ff0840ae8/1319010454/bitwarden-screenshot.png
 	curl -L -o discord.deb https://discord.com/api/download?platform=linux&format=deb
 	curl -L -o atom.deb https://atom.io/download/deb
 
 	TAGNAME=$(get_latest_release "MediaBrowser/Emby.Releases") && ENDSTRING="_amd64.deb" && LOCATION="https://github.com/MediaBrowser/Emby.Releases/releases/latest/download/emby-server-deb_$TAGNAME$ENDSTRING"; curl -L -o emby.deb $LOCATION
-	
+
 	dpkg -i *.deb
-	
-	echo "[Desktop Entry]
-Name=Bitwarden
-Comment=Password Manager
-Exec=$HOME/Apps/Bitwarden/Bitwarden.AppImage
-Icon=$HOME/Apps/Bitwarden/bitwarden.png
-Terminal=false
-Type=Application
-Categories=Utility;GTK;" >> bitwarden.desktop
-	
+
+	echo -e "[Desktop Entry]\nName=Bitwarden\nComment=Password Manager\nExec=$HOME/Apps/Bitwarden/Bitwarden.AppImage\nIcon=$HOME/Apps/Bitwarden/bitwarden.png\nTerminal=false\nType=Application\nCategories=Utility;GTK;" >> bitwarden.desktop
+
 	chmod 775 *.desktop
 	mv ./*.desktop $HOME/.local/share/applications
 }
@@ -52,35 +45,35 @@ Categories=Utility;GTK;" >> bitwarden.desktop
 echo "You're about to install a lot of programs, this was made to use once in a recent Ubuntu or Ubuntu derivative installation and assuming you're using Gnome Desktop Envrioment\n"
 echo "Are you sure you want to continue? (Y/N) [Default=N]"
 read ANSWERCONTINUE
-if [ $ANSWERCONTINUE -e "Y" -o $ANSWERCONTINUE -e "y" ] 
+if [ $ANSWERCONTINUE = "Y" -o $ANSWERCONTINUE = "y" ]
 	then
 		clear
 		echo "List of Ubuntu repository programs: "
 		echo "Audacity, Blender, CodeBlocks, Gedit, GIMP, gPick, Gthumb, Gufw, HandBrake, Java JDK, Kdenlive, LibreOffice, MySQL, pgAdmin3, PostgreSQL, Rhythmbox, Steam, Transmission, VIM, VLC, Wine, Winetricks"
-		
+
 		echo "\nList of Flatpak programs: "
 		echo "Foliate, Telegram, Visual Studio Code"
-		
+
 		echo "\nList of Manual installation programs: "
 		echo "Atom, Bitwarden, Discord, Emby Server, Lutris (if not in Pop_Os)"
-		
+
 		echo "\nAre you using Pop_OS? (Y/N) [Default=Y]"
 		read ANSWERPOPOS
-		if [ $ANSWERPOPOS -e "N" -o "n" ] 
+		if [ $ANSWERPOPOS = "N" -o $ANSWERPOPOS = "n" ]
 		then
 			popos=0
 		else
 			popos=1
 		fi
-		
+
 		ubuntuRepositoryInstallation
 		flatpakInstallation
 		manualInstallation
-		
+
 		clear
 		echo "Programs not installed, but recommended: Eclipse, XAMPP, MySQL Workbench"
 		exit
-		
+
 else
 	exit
 fi
